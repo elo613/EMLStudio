@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - eml-studios</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container text-center">
+        <h1 id="welcome-message">Verifying access...</h1>
+        <p id="user-details" class="details"></p>
+        <p id="db-error-message" class="error"></p>
+
+        <button id="logout-button" class="btn-danger">Log Out</button>
+    </div>
+
+    <!-- V8 Firebase SDK Imports -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <!-- Your custom Firebase config and logic -->
+    <script src="config.js"></script>
+    <script>
+    // --- Logout Logic ---
+    document.getElementById('logout-button').addEventListener('click', () => {
+        if (!auth) return;
+        
+        auth.signOut()
+            .then(() => {
+                // Redirect to login page after successful logout
+                window.location.href = "/";
+            })
+            .catch((error) => {
+                console.error("Logout Error:", error);
+                // Note: displayError is defined in config.js
+                displayError("Error logging out: " + error.message); 
+            });
+    });
+
+
+    // --- Authentication Check and Data Fetch ---
+    if (auth && db) {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                // 1. User is signed in. Display email immediately.
+                document.getElementById('user-details').textContent = `Email: ${user.email}`;
+
+                // 2. Fetch user data from Firestore (relies on Security Rules)
+                db.collection("users").doc(user.uid).get()
+                    .then(doc => {
+                        if (doc.exists) {
+                            // Data found. Display secure, private data.
+                            const fullName = doc.data().fullName;
+                            document.getElementById('welcome-message').innerHTML = `<span class="success">✅ Access Granted</span><br>Welcome, ${fullName}!`;
+                        } else {
+                            // User is logged in but profile data is missing (shouldn't happen with register flow)
+                            document.getElementById('welcome-message').textContent = "Welcome! Profile data incomplete.";
+                        }
+                    })
+                    .catch(error => {
+                        // This error usually means the Security Rules are wrong or the data fetch failed.
+                        console.error("Firestore Fetch Error (Security Check Fail?):", error);
+                        displayError("SECURITY ERROR: Could not fetch profile data.", true);
+                        document.getElementById('welcome-message').textContent = "Access Denied / Data Fetch Failed";
+                    });
+
+            } else {
+                // 3. User is NOT signed in. Redirect them to the login page.
+                window.location.href = "/";
+            }
+        });
+    } else {
+        document.getElementById('welcome-message').textContent = "System Error: Firebase unavailable.";
+    }
+    </script>
+</body>
+</html>
