@@ -4,9 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EML Studios</title>
+    
+    <style>
+        /* Import a modern, clean font from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+        :root {
+            --primary-color: #00bcd4; /* Cyan/Teal */
+            --background-color: #1a1a2e; /* Dark Blue/Purple */
+            --text-color: #f0f0f0; /* Off-White */
+            --card-color: #2c2c44; /* Slightly lighter dark blue */
+        }
+
+        /* Reset and basic styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            background-color: var(--card-color);
+            padding: 40px 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 90%;
+            border-top: 5px solid var(--primary-color);
+            /* Initial state for animation */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 0.5em;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 188, 212, 0.6);
+            /* Hover effect */
+            transition: color 0.3s ease;
+        }
+        
+        h1:hover {
+            color: white;
+            cursor: default;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 2em;
+            font-weight: 300;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
+        }
+
+        .button:hover {
+            background-color: #0097a7; /* Darker primary color */
+            transform: translateY(-2px);
+        }
+
+        /* Keyframe animation for fade-in effect */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to EML Studios</h1>
-    <p>This is the content of your basic HTML page.</p>
+    <div class="container">
+        <h1>EML Studios</h1>
+        <p>
+            Crafting digital experiences with style and precision. 
+            Explore our portfolio and see what makes EML stand out.
+        </p>
+        <a href="#" class="button">Discover Our Work</a>
+    </div>
 </body>
 </html>
