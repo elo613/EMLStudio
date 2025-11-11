@@ -1,69 +1,102 @@
-/* ... (Keep all existing styles) ... */
-
-/* New styles for the Tabbed Interface */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #eef1f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 .container {
-    /* Existing styles, just ensure text-align: left for general content */
     background: #ffffff;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 450px;
-    text-align: left; /* Keep this to align inner content */
+    text-align: left;
 }
-
-/* Tab Navigation Styling */
-.tab-nav {
-    display: flex;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #eef1f5;
-}
-
-.tab-button {
-    flex-grow: 1;
-    padding: 15px 10px;
-    border: none;
-    background-color: transparent;
-    color: #6c757d;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: color 0.3s, border-bottom 0.3s;
-    border-radius: 0;
-    margin: 0;
-    border-bottom: 3px solid transparent;
-}
-
-.tab-button:hover:not(.active) {
-    color: #007bff;
-}
-
-.tab-button.active {
-    color: #007bff;
-    border-bottom: 3px solid #007bff;
-}
-
-/* Tab Content Visibility */
-.tab-pane {
-    display: none;
-    /* Remove card styling from the HTML and apply a clean look here */
-    border: none; 
-    padding: 0;
-    margin-bottom: 0;
-    /* We still keep the original .card styling as a backup if needed, 
-       but for a cleaner tab switch, we'll override it */
-}
-
-.tab-pane.active {
-    display: block;
-}
-
-/* Ensure the error message is centered under the title */
-.error.text-center {
+.text-center {
     text-align: center;
 }
-
-/* Override button width for tab buttons */
-.tab-nav button {
-    width: auto;
+h1 {
+    color: #1a1a2e;
+    margin-bottom: 20px;
+}
+h2 {
+    color: #3e5c76;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+.card {
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    margin-top: 20px;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+}
+.error {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: none; /* Controlled by JS */
+    text-align: center;
+}
+.success {
+    color: #28a745;
+    font-weight: bold;
+}
+.details {
+    color: #6c757d;
 }
