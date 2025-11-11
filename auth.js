@@ -30,6 +30,7 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
         })
         .then(() => {
             // 3. Display success message then redirect.
+            // Requested feature: "User created" message
             errorMessageElement.innerHTML = '<span class="success">User created! Redirecting...</span>';
             errorMessageElement.style.display = 'block';
             setTimeout(() => {
@@ -38,7 +39,7 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
         })
         .catch((error) => {
             // Handle registration errors (e.g., weak password, email already in use)
-            // Use specific error message but fall back to Firebase's if not caught.
+            // Uses more specific Firebase error codes where possible.
             if (error.code === 'auth/email-already-in-use') {
                  displayError("Registration Failed: This email is already in use.");
             } else if (error.code === 'auth/weak-password') {
@@ -63,8 +64,7 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
             window.location.href = "home";
         })
         .catch((error) => {
-            // Handle login errors (e.g., wrong password, user not found)
-            // Use the user-requested message for login failure
+            // Requested feature: "Invalid Login details" message for login failures
             displayError("Invalid Login details");
         });
 });
