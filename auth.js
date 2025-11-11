@@ -29,12 +29,23 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
             });
         })
         .then(() => {
-            // 3. Redirect to the home page after registration and data save.
-            window.location.href = "home";
+            // 3. Display success message then redirect.
+            errorMessageElement.innerHTML = '<span class="success">User created! Redirecting...</span>';
+            errorMessageElement.style.display = 'block';
+            setTimeout(() => {
+                window.location.href = "home";
+            }, 1500); // Wait 1.5 seconds before redirecting
         })
         .catch((error) => {
             // Handle registration errors (e.g., weak password, email already in use)
-            displayError("Registration Failed: " + error.message);
+            // Use specific error message but fall back to Firebase's if not caught.
+            if (error.code === 'auth/email-already-in-use') {
+                 displayError("Registration Failed: This email is already in use.");
+            } else if (error.code === 'auth/weak-password') {
+                 displayError("Registration Failed: Password must be at least 6 characters.");
+            } else {
+                 displayError("Registration Failed: " + error.message);
+            }
         });
 });
 
@@ -52,7 +63,8 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
             window.location.href = "home";
         })
         .catch((error) => {
-            // Handle login errors (e.g., wrong password)
-            displayError("Login Failed: " + error.message);
+            // Handle login errors (e.g., wrong password, user not found)
+            // Use the user-requested message for login failure
+            displayError("Invalid Login details");
         });
 });
